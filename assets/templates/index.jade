@@ -1,0 +1,49 @@
+
+html
+
+  include partials/head.jade
+  
+  body
+    include partials/header.jade
+    main.main
+      section.cards
+        .container
+          input#viewtable(type="radio", name="view", checked="")
+          input#viewlist(type="radio", name="view")
+          .cards__controls
+            label.cards__viewlist(for="viewlist", title="Списком")
+              span.cards__viewlisticon
+            label.cards__viewtable(for="viewtable", table="Таблицы")
+              span.cards__viewtableicon
+          .clearfix
+        
+          .cards__table
+            include thumb/thumb
+            include thumblist/thumblist
+            include advert/advert
+            header.cards__header Горячии хиты
+            .cards__line
+              each item in hothits
+                if item.advert
+                  .thumb.thumb--advert
+                    +advert(item.advert, item.act, item.main)
+                else
+                  +thumb(item.name, item.desc, item.img, item.like)
+            header.cards__header Популярные
+            .cards__line
+              each item in hits
+                if item.advert
+                  .thumb.thumb--advert
+                    +advert(item.advert, item.act, item.main)
+                else
+                  +thumb(item.name, item.desc, item.img, item.like, item.video)
+          
+          .cards__list
+            header.cards__header Горячии хиты
+            .cards__line
+              each item in list
+                +thumblist(item.name, item.desc, item.img, item.like, item.video)
+                
+    include partials/footer
+    script(src='/js/app.js') 
+ 
